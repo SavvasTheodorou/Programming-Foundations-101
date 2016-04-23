@@ -1,0 +1,43 @@
+# a method that returns the sum of two integers
+
+START
+
+GET two numbers from the user
+SET variable num1 for the first num2 for the second
+
+Create the method where we add the two numbers
+
+PRINT the result - method(num1, num2)
+
+END
+
+
+# a method that takes an array of strings, and returns a string that is all those strings concatenated together
+
+START
+
+SET array of strings
+
+Use .join method to concatenate the array strings together
+SET the new string to a new variable - conc_arr
+
+PRINT the new variable - conc_arr
+
+END
+
+
+
+# a method that takes an array of integers, and returns a new array with every other element
+
+START
+
+Start the method and use a parameter as array
+
+WHILE use the index and if it is odd?
+go to next index
+SET a new variable - arr_every_other
+.push the values from the method
+
+PRINT the arr_every_other
+
+END
