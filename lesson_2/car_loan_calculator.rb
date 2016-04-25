@@ -40,6 +40,10 @@ def valid_number?(num)
   num.to_i > 0
 end
 
+def yes_or_no?(ans)
+  ans == "y" || ans == "n"
+end
+
 prompt("Before we start, lets get to know each other. I am Zeus. What's your name?")
 loop do
   name = gets.chomp.capitalize
@@ -57,7 +61,7 @@ loop do
     prompt("How much is your total loan amount?")
     loan_amount = gets.chomp.to_f
 
-    prompt("You are screwed!!") if loan_amount.to_i > 150000
+    prompt("Big loan for a car ...") if loan_amount.to_i > 150000
 
     if valid_number?(loan_amount)
       break
@@ -103,7 +107,16 @@ loop do
   prompt("Loan duration in months: #{loan_duration}")
   prompt("The monthly payment is: €#{monthly_payment_amount.round(2)}")
   puts
-  prompt("Calculate again? Hit 'Y' to calculate again")
-  answer = gets.chomp
+  
+  loop do
+    prompt("Calculate again? Hit 'Y' to calculate again, 'N' to exit")
+    answer = gets.chomp
+    
+    if yes_or_no?(answer)
+      break
+    else
+      prompt("I only accept 'Y' and 'N'")
+    end
+  end
   break unless answer.downcase.start_with?("y")
 end
