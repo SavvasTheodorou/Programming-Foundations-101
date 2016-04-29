@@ -43,3 +43,48 @@ famous_words = "seven years ago..."
 p "Four score and #{famous_words}."
 
 p "Four score and " << famous_words
+
+
+def add_eight(number)
+  number + 8
+end
+
+puts
+
+#  Question 7
+number = 2
+
+how_deep = "number"
+5.times { how_deep.gsub!("number", "add_eight(number)") }
+
+p how_deep
+
+p eval(how_deep)
+
+puts
+
+# Question 8
+flintstones = ["Fred", "Wilma"]
+flintstones << ["Barney", "Betty"]
+flintstones << ["BamBam", "Pebbles"]
+
+p flintstones
+
+p flintstones.flatten!
+
+puts
+
+# Question 9
+flintstones = { "Fred" => 0, "Wilma" => 1, "Barney" => 2, "Betty" => 3, "BamBam" => 4, "Pebbles" => 5 }
+p flintstones.assoc("Barney")
+
+puts
+
+# Question 10
+flintstones = ["Fred", "Barney", "Wilma", "Betty", "Pebbles", "BamBam"]
+flintstones_hash = { }
+flintstones.each_with_index do |i, v|
+  flintstones_hash[i] = v
+end
+
+p flintstones_hash
