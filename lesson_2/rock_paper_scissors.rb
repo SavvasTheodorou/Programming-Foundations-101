@@ -76,8 +76,6 @@ computer_count = 0
 
 while player_count < 5 && computer_count < 5
   player_choice = ''
-  player_count = player_count
-  computer_count = computer_count
 
   loop do
     display_choice_message(VALID_CHOICE_NAMES)
