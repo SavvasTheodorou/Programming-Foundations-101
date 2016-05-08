@@ -59,8 +59,39 @@ def player_places_piece!(brd)
   brd[square] = PLAYER_MARKER
 end
 
+def find_two_sqrs(line, board, marker)
+  if board.values_at(*line).count(marker) == 2
+    board.select{|k,v| line.include?(k) && v == INITIAL_MARKER}.keys.first
+    # binding.pry
+  else
+    nil
+  end
+end
+
+# def computer_random_selection(brd)
+#   square = empty_squares(brd).sample
+#   brd[square] = COMPUTER_MARKER
+# end
+
 def computer_places_piece!(brd)
-  square = empty_squares(brd).sample
+  square = nil
+
+  WINNING_LINES.each do |line|
+    square = find_two_sqrs(line, brd, PLAYER_MARKER)
+    break if square
+  end
+
+  if !square
+    WINNING_LINES.each do |line|
+      square = find_two_sqrs(line, brd, COMPUTER_MARKER)
+      break if square
+    end
+  end
+
+  if !square
+    square = empty_squares(brd).sample
+  end
+
   brd[square] = COMPUTER_MARKER
 end
 
@@ -92,21 +123,26 @@ def detect_winner(brd)
   nil
 end
 
-player_count = 0
-computer_count = 0
-def count_winnings(result)
-  player_count += 1 if detect_winner(board) == 'Player'
-  computer_count += 1 if detect_winner(board) == 'Computer'
-  player_count
-  computer_count
-end
+# I am getting undefined method `+' for nil:NilClass when I add the method
+# I do not understan why
+# player_count = 0
+# computer_count = 0
+# def count_winnings(result, player_c, computer_c)
+#   player_c += 1 if result == 'Player'
+#   computer_c += 1 if result == 'Computer'
+
+#   prompt("Player has #{player_c} points")
+#   prompt("Computer has #{computer_c} points")
+#   player_count += player_c
+#   computer_count += computer_c
+# end
 
 result = 0
 
 loop do
-  prompt("How many rounds you want to play?")
-  rounds_number = gets.chomp.to_i
-  prompt("Good luck! The first one to win #{rounds_number} rounds wins the game!")
+  prompt("What's the winning score?")
+  winning_score = gets.chomp.to_i
+  prompt("Good luck! The first one to reach #{winning_score} wins is the champion!")
 
   player_count = 0
   computer_count = 0
@@ -133,13 +169,15 @@ loop do
       prompt "Is tie"
     end
 
+    # count_winnings(detect_winner(board), player_count, computer_count)
+
     player_count += 1 if detect_winner(board) == 'Player'
     computer_count += 1 if detect_winner(board) == 'Computer'
 
     prompt("Player has #{player_count} points")
     prompt("Computer has #{computer_count} points")
 
-    break if player_count == rounds_number || computer_count == rounds_number
+    break if player_count == winning_score || computer_count == winning_score
   end
 
   prompt "Do you want to play again?(y or n)"
